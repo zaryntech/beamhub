@@ -1,0 +1,4 @@
+[{<<"nanoid">>,
+  {git,"https://github.com/zaryntech/nanoid.git",
+       {ref,"429904c8c7513ecd327b6bf5793909cd853596f5"}},
+  0}].
