@@ -24,4 +24,7 @@ init_mnesia() ->
     mnesia:start(),  
     mnesia:create_table(nexus, [{attributes, record_info(fields, nexus)},
                                 {disc_copies, [node()]},
-                                {type, ordered_set}]).
+                                {type, ordered_set}]),
+    mnesia:create_table(download, [{attributes, record_info(fields, download)},
+                                   {disc_copies, [node()]},
+                                   {type, ordered_set}]).
