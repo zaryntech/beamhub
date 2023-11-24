@@ -14,10 +14,10 @@ upload_file(File) ->
     gen_server:call(?MODULE, {upload_file, File}).
     
 download_file(FileID) ->
-    gen_server:cast(?MODULE, {download_file, FileID}).
+    gen_server:call(?MODULE, {download_file, FileID}).
 
 get_file_by_id(FileID) ->
-    gen_server:cast(?MODULE, {get_file_by_id, FileID}).
+    gen_server:call(?MODULE, {get_file_by_id, FileID}).
     
 get_state() ->
     gen_server:call(?MODULE, get_state).
@@ -32,17 +32,17 @@ handle_call({upload_file, File}, _From, State) ->
     {reply, Res, State};
 %  
 handle_call(get_state, _From, State) ->
-    {reply, State, State}.
+    {reply, State, State};
     
 % 
-handle_cast({download_file, FileID}, State) ->
-    spawn_link(download_worker, download_file_worker, [self(), FileID]),
-    {noreply, State};
+handle_call({download_file, FileID}, _From, State) ->
+    Res = download_storage:download_file(FileID),
+    {reply, Res, State};
     
 %
-handle_cast({get_file_by_id, FileID}, State) ->
-    spawn_link(download_worker, get_file_info, [self(), FileID]),
-    {noreply, State};
+handle_call({get_file_by_id, FileID}, _From, State) ->
+    Res = download_storage:get_file_by_id(FileID),
+    {reply, Res, State}.
 
 handle_cast(_Msg, State) ->
     {noreply, State}.

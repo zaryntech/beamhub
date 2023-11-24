@@ -3,7 +3,8 @@
     username,
     node,
     cookie,
-    chat 
+    chat,
+    pid
 }).
 
 -record(download, {
@@ -12,4 +13,11 @@
     status,
     progress,
     pid
+}).
+
+-record(chat, {
+    id, 
+    content,
+    sender, 
+    recipient
 }).

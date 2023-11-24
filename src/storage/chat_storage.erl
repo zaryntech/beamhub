@@ -1,0 +1,2 @@
+-module(chat_storage).
+-author("Zaryn Technologies").
